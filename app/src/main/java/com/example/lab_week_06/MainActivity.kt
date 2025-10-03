@@ -3,6 +3,7 @@ package com.example.lab_week_06
 import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.lab_week_06.model.CatBreed
@@ -16,8 +17,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val catAdapter by lazy {
-        // Glide is used here to load the images
-        // Kita pasang listener langsung di sini
         CatAdapter(layoutInflater, GlideImageLoader(this), object : CatAdapter.OnClickListener {
             override fun onItemClick(cat: CatModel) {
                 showSelectionDialog(cat)
@@ -29,14 +28,18 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // Setup the adapter for the recycler view
+        // Setup the adapter
         recyclerView.adapter = catAdapter
 
         // Setup the layout manager
         recyclerView.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        // Add dummy data
+        // ✅ Tambahin ItemTouchHelper untuk swipe-to-delete
+        val itemTouchHelper = ItemTouchHelper(catAdapter.swipeToDeleteCallback)
+        itemTouchHelper.attachToRecyclerView(recyclerView)
+
+        // Add data ke adapter
         catAdapter.setData(
             listOf(
                 CatModel(
@@ -64,7 +67,6 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
-    // Dialog pop-up kalau item diklik
     private fun showSelectionDialog(cat: CatModel) {
         AlertDialog.Builder(this)
             .setTitle("Cat Selected")
