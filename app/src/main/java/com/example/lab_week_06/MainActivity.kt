@@ -1,6 +1,7 @@
 package com.example.lab_week_06
 
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -9,12 +10,19 @@ import com.example.lab_week_06.model.CatModel
 import com.example.lab_week_06.model.Gender
 
 class MainActivity : AppCompatActivity() {
+
     private val recyclerView: RecyclerView by lazy {
         findViewById(R.id.recycler_view)
     }
+
     private val catAdapter by lazy {
         // Glide is used here to load the images
-        CatAdapter(layoutInflater, GlideImageLoader(this))
+        // Kita pasang listener langsung di sini
+        CatAdapter(layoutInflater, GlideImageLoader(this), object : CatAdapter.OnClickListener {
+            override fun onItemClick(cat: CatModel) {
+                showSelectionDialog(cat)
+            }
+        })
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,11 +32,11 @@ class MainActivity : AppCompatActivity() {
         // Setup the adapter for the recycler view
         recyclerView.adapter = catAdapter
 
-        // Setup the layout manager for the recycler view
+        // Setup the layout manager
         recyclerView.layoutManager =
             LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
-        // Add data to the model list in the adapter
+        // Add dummy data
         catAdapter.setData(
             listOf(
                 CatModel(
@@ -46,7 +54,7 @@ class MainActivity : AppCompatActivity() {
                     "https://cdn2.thecatapi.com/images/egv.jpg"
                 ),
                 CatModel(
-                    Gender.Unknown,   // ✅ ini yang tadi hilang
+                    Gender.Unknown,
                     CatBreed.AmericanCurl,
                     "Curious George",
                     "Award winning investigator",
@@ -54,5 +62,14 @@ class MainActivity : AppCompatActivity() {
                 )
             )
         )
+    }
+
+    // Dialog pop-up kalau item diklik
+    private fun showSelectionDialog(cat: CatModel) {
+        AlertDialog.Builder(this)
+            .setTitle("Cat Selected")
+            .setMessage("You have selected cat ${cat.name}")
+            .setPositiveButton("OK", null)
+            .show()
     }
 }
