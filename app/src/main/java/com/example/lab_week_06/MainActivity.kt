@@ -39,30 +39,19 @@ class MainActivity : AppCompatActivity() {
         val itemTouchHelper = ItemTouchHelper(catAdapter.swipeToDeleteCallback)
         itemTouchHelper.attachToRecyclerView(recyclerView)
 
-        // Add data ke adapter
+        // ✅ Add 10 data ke adapter
         catAdapter.setData(
             listOf(
-                CatModel(
-                    Gender.Male,
-                    CatBreed.BalineseJavanese,
-                    "Fred",
-                    "Silent and deadly",
-                    "https://cdn2.thecatapi.com/images/7dj.jpg"
-                ),
-                CatModel(
-                    Gender.Female,
-                    CatBreed.ExoticShorthair,
-                    "Wilma",
-                    "Cuddly assassin",
-                    "https://cdn2.thecatapi.com/images/egv.jpg"
-                ),
-                CatModel(
-                    Gender.Unknown,
-                    CatBreed.AmericanCurl,
-                    "Curious George",
-                    "Award winning investigator",
-                    "https://cdn2.thecatapi.com/images/bar.jpg"
-                )
+                CatModel(Gender.Male, CatBreed.BalineseJavanese, "Fred", "Silent and deadly", "https://cdn2.thecatapi.com/images/7dj.jpg"),
+                CatModel(Gender.Female, CatBreed.ExoticShorthair, "Wilma", "Cuddly assassin", "https://cdn2.thecatapi.com/images/egv.jpg"),
+                CatModel(Gender.Unknown, CatBreed.AmericanCurl, "Curious George", "Award winning investigator", "https://cdn2.thecatapi.com/images/bar.jpg"),
+                CatModel(Gender.Male, CatBreed.ExoticShorthair, "Tommy", "Sleep all day", "https://cdn2.thecatapi.com/images/8k3.jpg"),
+                CatModel(Gender.Female, CatBreed.BalineseJavanese, "Luna", "Chasing butterflies", "https://cdn2.thecatapi.com/images/9de.jpg"),
+                CatModel(Gender.Male, CatBreed.AmericanCurl, "Oscar", "Food hunter", "https://cdn2.thecatapi.com/images/ab1.jpg"),
+                CatModel(Gender.Female, CatBreed.ExoticShorthair, "Mia", "Loves cuddles", "https://cdn2.thecatapi.com/images/ac2.jpg"),
+                CatModel(Gender.Unknown, CatBreed.BalineseJavanese, "Shadow", "Silent stalker", "https://cdn2.thecatapi.com/images/ad3.jpg"),
+                CatModel(Gender.Male, CatBreed.AmericanCurl, "Simba", "King of naps", "https://cdn2.thecatapi.com/images/ae4.jpg"),
+                CatModel(Gender.Female, CatBreed.ExoticShorthair, "Nala", "Always curious", "https://cdn2.thecatapi.com/images/af5.jpg")
             )
         )
     }
